@@ -1,6 +1,7 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
 void main() {
   runApp(MyApp());
@@ -252,46 +253,40 @@ class MenuPage extends StatelessWidget {
       ['34']
     ];
 
-    List<ListView> dailyMenus = [
-      buildDailyMenu(menu[0]),
-      buildDailyMenu(menu[1])
+    List<Wrap> dailyMenus = [
+      buildDailyMenu(menu[0], DateTime.now()),
+      buildDailyMenu(menu[1], DateTime.now().add(const Duration(days: 1))),
     ];
 
-    return dailyMenus[0];
-
-    // TODO: handle lists of lists
-    return ListView.separated(
-      itemBuilder: (context, index) {
-        return dailyMenus[index];
-      },
+    return ListView.builder(
       itemCount: dailyMenus.length,
-      separatorBuilder: (context, index) {
-        return const SizedBox(width: 16);
+      itemBuilder: (context, index) {
+        return StickyHeader(
+            header: Container(
+              height: 50.0,
+              // color: Colors.blueGrey[700],
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Header #$index',
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+            content: dailyMenus[index]);
+        // return dailyMenus[index];
       },
-      scrollDirection: Axis.vertical,
-      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
     );
 
-    // List<ListView> dailyMenu =
-    //     menu.map((dailyMenu) => buildDailyMenu(dailyMenu)).toList();
-
-    // return ListView(
-    //   children: dailyMenu,
+    // return Column(
+    //   mainAxisAlignment: MainAxisAlignment.start,
+    //   crossAxisAlignment: CrossAxisAlignment.start,
+    //   children: dailyMenus.expand((element) => element).toList(),
     // );
   }
 
-  ListView buildDailyMenu(List<String> menu) {
-    return ListView.separated(
-      itemBuilder: (context, index) {
-        final dish = menu[index];
-        return DishCard(dish: dish);
-      },
-      itemCount: menu.length,
-      separatorBuilder: (context, index) {
-        return const SizedBox(width: 16);
-      },
-      scrollDirection: Axis.horizontal,
-      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+  Wrap buildDailyMenu(List<String> menu, DateTime day) {
+    return Wrap(
+      children: menu.map((dish) => DishCard(dish: dish)).toList(),
     );
   }
 }
