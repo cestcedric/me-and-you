@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:me_and_you/state/app_state.dart';
 import 'package:me_and_you/widgets/dish_card.dart';
 import 'package:me_and_you/widgets/daily_header.dart';
+import 'package:provider/provider.dart';
 
 class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // var appState = context.watch<MyAppState>();
+    var appState = context.watch<AppState>();
 
     // TODO: read data from app state
 
@@ -26,16 +28,23 @@ class MenuPage extends StatelessWidget {
     // TODO: add sliver app bar
 
     return Container(
-        color: Theme.of(context).colorScheme.background,
-        child: ListView.builder(
-          itemCount: dailyMenus.length,
-          itemBuilder: (context, index) {
-            return DailyHeader(
-              date: DateTime.now().add(Duration(days: index)),
-              dishes: dailyMenus[index],
-            );
+      color: Theme.of(context).colorScheme.background,
+      child: ElevatedButton(
+          onPressed: () async {
+            await appState.fetchData();
           },
-        ));
+          child: Text('load')),
+    );
+
+    // child: ListView.builder(
+    //   itemCount: dailyMenus.length,
+    //   itemBuilder: (context, index) {
+    //     return DailyHeader(
+    //       date: DateTime.now().add(Duration(days: index)),
+    //       dishes: dailyMenus[index],
+    //     );
+    //   },
+    // ));
   }
 
   Wrap buildDailyMenu(List<String> menu) {

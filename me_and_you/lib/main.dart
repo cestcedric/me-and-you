@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:me_and_you/state/appstate.dart';
+import 'package:me_and_you/state/app_state.dart';
 import 'package:me_and_you/widgets/home.dart';
 import 'package:provider/provider.dart';
 
