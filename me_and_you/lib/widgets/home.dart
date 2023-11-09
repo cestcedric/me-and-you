@@ -29,11 +29,19 @@ class MenuPage extends StatelessWidget {
 
     return Container(
       color: Theme.of(context).colorScheme.background,
-      child: ElevatedButton(
-          onPressed: () async {
-            await appState.fetchData();
-          },
-          child: Text('load')),
+      child: Column(
+        children: [
+          Visibility(
+            visible: !appState.dataLoaded,
+            child: CircularProgressIndicator.adaptive(),
+          ),
+          ElevatedButton(
+              onPressed: () async {
+                await appState.fetchData();
+              },
+              child: Text('load'))
+        ],
+      ),
     );
 
     // child: ListView.builder(

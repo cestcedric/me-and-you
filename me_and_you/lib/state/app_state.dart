@@ -1,34 +1,39 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:me_and_you/state/entities/allergen.dart';
-import 'package:me_and_you/state/config.dart';
+import '../utils.dart';
+import '../widgets/config.dart';
+import 'entities/dish.dart';
 
 class AppState extends ChangeNotifier {
-  final Map<dynamic, Allergen> allergens = {};
-  var categories = {};
-  var dishes = {};
+  bool dataLoaded = false;
+
+  Map<String, List<dynamic>> menu = {};
+
+  late DateTime validFrom;
+  late DateTime validTo;
+  late String location;
+
+  static Future<AppState> getAppState() async {
+    var appState = AppState();
+    await appState.fetchData();
+    return appState;
+  }
 
   Future fetchData() async {
-    print('Fetching data');
+    dataLoaded = false;
+    notifyListeners();
 
-    Iterable allergenList = await fetchFile(Config.allergens);
-    for (var entry in allergenList) {
-      var allergen = Allergen.fromJson(entry);
-      allergens[allergen.id] = allergen;
-    }
+    var data = await fetchFile(Config.menu);
 
-    print('Allergens fetched (${allergens.length})');
+    validFrom = DateTime.parse(data['validFrom']);
+    validTo = DateTime.parse(data['validTo']);
+    location = data['location'];
+    data['dishes'].forEach((date, dishes) => {
+          menu[date] = dishes.map((element) => Dish.fromJson(element)).toList()
+        });
+
+    dataLoaded = true;
 
     notifyListeners();
     return;
   }
-}
-
-Future<dynamic> fetchFile(String id) async {
-  return http
-      .get(Uri.parse('${Config.driveBaseUrl}$id'))
-      .then((response) => response.body)
-      .then((data) => json.decode(data));
 }
