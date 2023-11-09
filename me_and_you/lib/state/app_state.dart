@@ -4,7 +4,7 @@ import '../widgets/config.dart';
 import 'entities/dish.dart';
 
 class AppState extends ChangeNotifier {
-  bool dataLoaded = false;
+  bool dataLoaded = true;
 
   Map<String, List<dynamic>> menu = {};
 
@@ -12,16 +12,22 @@ class AppState extends ChangeNotifier {
   late DateTime validTo;
   late String location;
 
-  static Future<AppState> getAppState() async {
-    var appState = AppState();
-    await appState.fetchData();
-    return appState;
+  // Hide initial data fetching in page loading time, usually pretty quick
+  Future init() async {
+    await fetchData();
+    notifyListeners();
   }
 
-  Future fetchData() async {
+  Future update() async {
     dataLoaded = false;
     notifyListeners();
 
+    await fetchData();
+
+    notifyListeners();
+  }
+
+  Future fetchData() async {
     var data = await fetchFile(Config.menu);
 
     validFrom = DateTime.parse(data['validFrom']);
@@ -32,8 +38,5 @@ class AppState extends ChangeNotifier {
         });
 
     dataLoaded = true;
-
-    notifyListeners();
-    return;
   }
 }

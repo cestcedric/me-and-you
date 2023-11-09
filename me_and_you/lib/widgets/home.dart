@@ -33,11 +33,11 @@ class MenuPage extends StatelessWidget {
         children: [
           Visibility(
             visible: !appState.dataLoaded,
-            child: CircularProgressIndicator.adaptive(),
+            child: LinearProgressIndicator(),
           ),
           ElevatedButton(
               onPressed: () async {
-                await appState.fetchData();
+                await appState.update();
               },
               child: Text('load'))
         ],

@@ -12,8 +12,11 @@ class CanteenApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var appState = AppState();
+    appState.init();
+
     return ChangeNotifierProvider(
-      create: (context) => AppState(),
+      create: (context) => appState,
       child: MaterialApp(
         title: 'Me & You',
         theme: ThemeData(
