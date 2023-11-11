@@ -12,8 +12,9 @@ class CanteenApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // async data retrieval to fill state, start as early as possible
     var appState = AppState();
-    appState.init();
+    appState.update();
 
     return ChangeNotifierProvider(
       create: (context) => appState,

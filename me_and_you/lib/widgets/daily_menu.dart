@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sticky_headers/sticky_headers.dart';
-import 'package:me_and_you/utils.dart';
+import 'package:me_and_you/utils/index.dart';
 
+/// A segment containing all dishes of a certain day and a sticky header
 class DailyMenu extends StatelessWidget {
   final DateTime date;
   final Wrap dishes;
@@ -14,37 +15,41 @@ class DailyMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // styles
     final theme = Theme.of(context);
-    final primaryStyle = theme.textTheme.displaySmall!.copyWith(
+    final dayStyle = theme.textTheme.displaySmall!.copyWith(
       color: theme.colorScheme.onBackground,
     );
-    final secondaryStyle = theme.textTheme.displaySmall!.copyWith(
+    final dateStyle = theme.textTheme.displaySmall!.copyWith(
       color: theme.colorScheme.onBackground.withOpacity(0.6),
       fontSize: theme.textTheme.displaySmall!.fontSize! * 0.7,
     );
 
+    // sticky header content
     final day = TextSpan(
-      text: dateToString(date),
-      style: primaryStyle,
+      text: getWeekday(date),
+      style: dayStyle,
     );
     final padding = TextSpan(text: '\t' * 3);
     final dateString = TextSpan(
-      text: '${date.day}.${date.month}.${date.year}',
-      style: secondaryStyle,
+      text: dateToDottedString(date),
+      style: dateStyle,
     );
+    final headerContent = TextSpan(children: [
+      day,
+      padding,
+      dateString,
+    ]);
 
     return StickyHeader(
-        header: Container(
-            color: theme.colorScheme.background,
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            alignment: Alignment.centerLeft,
-            child: RichText(
-              text: TextSpan(children: [
-                day,
-                padding,
-                dateString,
-              ]),
-            )),
-        content: dishes);
+      header: Container(
+          color: theme.colorScheme.background,
+          padding: EdgeInsets.symmetric(vertical: 16),
+          alignment: Alignment.centerLeft,
+          child: RichText(
+            text: headerContent,
+          )),
+      content: dishes,
+    );
   }
 }
