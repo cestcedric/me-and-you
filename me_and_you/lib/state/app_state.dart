@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
-import '../utils.dart';
-import '../widgets/config.dart';
-import 'entities/dish.dart';
+import 'package:me_and_you/utils.dart';
+import 'package:me_and_you/widgets/config.dart';
+import 'package:me_and_you/entities/dish.dart';
 
 class AppState extends ChangeNotifier {
   bool dataLoaded = true;
 
-  Map<String, List<dynamic>> menu = {};
+  Map<String, List<Dish>> menu = {};
 
-  late DateTime validFrom;
-  late DateTime validTo;
-  late String location;
+  // educated guess that works out fine during the week, shows last week on week-end
+  // is updated as soon as menu data is loaded
+  DateTime validFrom = DateTime.now().subtract(
+    Duration(days: DateTime.now().weekday - 1),
+  );
+  DateTime validTo = DateTime.now().add(
+    Duration(days: 7 - DateTime.now().weekday - 1),
+  );
+  String location = '';
 
   // Hide initial data fetching in page loading time, usually pretty quick
   Future init() async {
@@ -34,7 +40,8 @@ class AppState extends ChangeNotifier {
     validTo = DateTime.parse(data['validTo']);
     location = data['location'];
     data['dishes'].forEach((date, dishes) => {
-          menu[date] = dishes.map((element) => Dish.fromJson(element)).toList()
+          menu[date] =
+              dishes.map<Dish>((element) => Dish.fromJson(element)).toList()
         });
 
     dataLoaded = true;

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sticky_headers/sticky_headers.dart';
+import 'package:me_and_you/utils.dart';
 
-class DailyHeader extends StatelessWidget {
+class DailyMenu extends StatelessWidget {
   final DateTime date;
   final Wrap dishes;
 
-  const DailyHeader({
+  const DailyMenu({
     super.key,
     required this.date,
     required this.dishes,
@@ -14,17 +15,23 @@ class DailyHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final primaryStyle = theme.textTheme.displayLarge!.copyWith(
+    final primaryStyle = theme.textTheme.displaySmall!.copyWith(
       color: theme.colorScheme.onBackground,
     );
     final secondaryStyle = theme.textTheme.displaySmall!.copyWith(
       color: theme.colorScheme.onBackground.withOpacity(0.6),
+      fontSize: theme.textTheme.displaySmall!.fontSize! * 0.7,
     );
 
-    final day = TextSpan(text: dateToString(date), style: primaryStyle);
+    final day = TextSpan(
+      text: dateToString(date),
+      style: primaryStyle,
+    );
     final padding = TextSpan(text: '\t' * 3);
     final dateString = TextSpan(
-        text: '${date.day}.${date.month}.${date.year}', style: secondaryStyle);
+      text: '${date.day}.${date.month}.${date.year}',
+      style: secondaryStyle,
+    );
 
     return StickyHeader(
         header: Container(
@@ -32,23 +39,12 @@ class DailyHeader extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             alignment: Alignment.centerLeft,
             child: RichText(
-                text: TextSpan(children: [
-              day,
-              padding,
-              dateString,
-            ]))),
+              text: TextSpan(children: [
+                day,
+                padding,
+                dateString,
+              ]),
+            )),
         content: dishes);
   }
-}
-
-String dateToString(DateTime date) {
-  return [
-    'Montag',
-    'Dienstag',
-    'Mittwoch',
-    'Donnerstag',
-    'Freitag',
-    'Samstag',
-    'Sonntag'
-  ][date.weekday - 1];
 }

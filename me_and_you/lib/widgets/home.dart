@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:me_and_you/entities/dish.dart';
 import 'package:me_and_you/state/app_state.dart';
 import 'package:me_and_you/widgets/dish_card.dart';
-import 'package:me_and_you/widgets/daily_header.dart';
+import 'package:me_and_you/widgets/daily_menu.dart';
 import 'package:provider/provider.dart';
 
 class MenuPage extends StatelessWidget {
@@ -9,53 +10,31 @@ class MenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<AppState>();
 
-    // TODO: read data from app state
-
-    const menu = [
-      ['beans', 'greens', 'tomatoes', 'potatoes'],
-      ['1'],
-      ['1'],
-      ['32', '324'],
-      ['34'],
-      ['34']
-    ];
-
-    List<Wrap> dailyMenus = [
-      buildDailyMenu(menu[0]),
-      buildDailyMenu(menu[1]),
-    ];
+    var validFrom = appState.validFrom;
+    var validTo = appState.validTo;
+    var location = appState.location;
+    var menu = appState.menu;
 
     // TODO: add sliver app bar
 
-    return Container(
-      color: Theme.of(context).colorScheme.background,
-      child: Column(
-        children: [
-          Visibility(
-            visible: !appState.dataLoaded,
-            child: LinearProgressIndicator(),
-          ),
-          ElevatedButton(
-              onPressed: () async {
-                await appState.update();
-              },
-              child: Text('load'))
-        ],
-      ),
-    );
+    // TODO: autoscroll to current date
 
-    // child: ListView.builder(
-    //   itemCount: dailyMenus.length,
-    //   itemBuilder: (context, index) {
-    //     return DailyHeader(
-    //       date: DateTime.now().add(Duration(days: index)),
-    //       dishes: dailyMenus[index],
-    //     );
-    //   },
-    // ));
+    return Container(
+        color: Theme.of(context).colorScheme.background,
+        child: ListView.builder(
+          itemCount: validTo.difference(validFrom).inDays + 1,
+          itemBuilder: (context, index) {
+            return DailyMenu(
+              date: validFrom.add(Duration(days: index)),
+              dishes: menu.isNotEmpty
+                  ? buildDailyMenu(menu[menu.keys.toList()[index]] ?? [])
+                  : buildDailyMenu([]),
+            );
+          },
+        ));
   }
 
-  Wrap buildDailyMenu(List<String> menu) {
+  Wrap buildDailyMenu(List<Dish> menu) {
     return Wrap(
       children: menu.map((dish) => DishCard(dish: dish)).toList(),
     );

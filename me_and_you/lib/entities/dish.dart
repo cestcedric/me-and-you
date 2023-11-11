@@ -1,5 +1,6 @@
 class Dish {
   final int id;
+  final num price;
   final String name;
   final DateTime date;
   final String category;
@@ -10,6 +11,7 @@ class Dish {
 
   Dish(
     this.id,
+    this.price,
     this.name,
     this.date,
     this.category,
@@ -21,6 +23,7 @@ class Dish {
 
   Dish.fromJson(Map<String, dynamic> json)
       : id = json['id'],
+        price = json['price'],
         name = json['name'] as String,
         date = DateTime.parse(json['date']),
         category = json['category'] as String,
@@ -31,12 +34,12 @@ class Dish {
 }
 
 class NutritionInfo {
-  final int kj;
-  final int kcal;
-  final num fat;
-  final num carb;
-  final num protein;
-  final num sodium;
+  final int? kj;
+  final int? kcal;
+  final num? fat;
+  final num? carb;
+  final num? protein;
+  final num? sodium;
 
   NutritionInfo(
     this.kj,
@@ -48,10 +51,10 @@ class NutritionInfo {
   );
 
   NutritionInfo.fromJson(Map<String, dynamic> json)
-      : kj = json['kj'] as int,
-        kcal = json['kcal'] as int,
-        fat = json['fat'] as num,
-        carb = json['carb'] as num,
-        protein = json['protein'] as num,
-        sodium = json['sodium'] as num;
+      : kj = json['kj'],
+        kcal = json['kcal'],
+        fat = json['fat'],
+        carb = json['carb'],
+        protein = json['protein'],
+        sodium = json['sodium'];
 }

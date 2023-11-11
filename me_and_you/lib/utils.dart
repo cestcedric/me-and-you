@@ -8,3 +8,15 @@ Future<dynamic> fetchFile(String id) async {
       .then((response) => utf8.decode(response.bodyBytes))
       .then((data) => json.decode(data));
 }
+
+String dateToString(DateTime date) {
+  return [
+    'Montag',
+    'Dienstag',
+    'Mittwoch',
+    'Donnerstag',
+    'Freitag',
+    'Samstag',
+    'Sonntag'
+  ][date.weekday - 1];
+}
