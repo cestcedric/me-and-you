@@ -29,7 +29,7 @@ class DishCard extends StatelessWidget {
     const cardBorder = BorderRadius.all(Radius.circular(12));
 
     // vegan/vegetarian dish? => green card
-    final isVegan =
+    final isVeggie =
         dish.labels.contains('Vegan') || dish.labels.contains('Vegetarisch');
 
     return SizedBox(
@@ -55,8 +55,9 @@ class DishCard extends StatelessWidget {
               color: theme.colorScheme.background,
               shape: RoundedRectangleBorder(
                 side: BorderSide(
-                  color:
-                      isVegan ? Colors.green : theme.colorScheme.outlineVariant,
+                  color: isVeggie
+                      ? Colors.green
+                      : theme.colorScheme.outlineVariant,
                 ),
                 borderRadius: cardBorder,
               ),
@@ -74,7 +75,7 @@ class DishCard extends StatelessWidget {
                         Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              VeganTag(isVegan: isVegan),
+                              VeggieTag(isVeggie: isVeggie),
                               Text(dish.category, style: dishCategoryStyle)
                             ]),
                         Text(formatPrice(dish.price), style: dishPriceStyle)
@@ -91,6 +92,8 @@ class DishCard extends StatelessWidget {
   }
 }
 
+/// Detailed information about dish
+/// TODO: implement
 class DishDetailCard extends StatelessWidget {
   const DishDetailCard({
     super.key,
@@ -109,24 +112,25 @@ class DishDetailCard extends StatelessWidget {
   }
 }
 
-class VeganTag extends StatelessWidget {
-  const VeganTag({super.key, required this.isVegan});
+/// Returns tag if dish is vegan/vegetarian
+class VeggieTag extends StatelessWidget {
+  const VeggieTag({super.key, required this.isVeggie});
 
-  final bool isVegan;
+  final bool isVeggie;
 
   @override
   Widget build(BuildContext context) {
-    return isVegan
+    return isVeggie
         ? Padding(
             padding: EdgeInsets.only(right: 8),
             child: Container(
               padding: EdgeInsets.all(8.0),
               decoration: BoxDecoration(
-                color: isVegan ? Colors.green : Colors.red,
+                color: isVeggie ? Colors.green : Colors.red,
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: Text(
-                isVegan ? 'Vegan' : 'Non-Vegan',
+                'Veggie',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
