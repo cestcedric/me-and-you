@@ -44,7 +44,7 @@ class DailyMenu extends StatelessWidget {
     return StickyHeader(
       header: Container(
           color: theme.colorScheme.background,
-          padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+          padding: EdgeInsets.all(16),
           alignment: Alignment.centerLeft,
           child: RichText(
             text: headerContent,
