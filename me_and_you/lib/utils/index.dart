@@ -38,3 +38,11 @@ String dateToDashedString(DateTime date) {
 String formatPrice(num price) {
   return '${price.toStringAsFixed(2)} €';
 }
+
+String formatList(List list) {
+  return list.isNotEmpty ? list.join(', ') : '-';
+}
+
+String formatNum(num? x) {
+  return x?.toString() ?? '-';
+}

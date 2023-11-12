@@ -42,6 +42,15 @@ class Dish implements Comparable<Dish> {
         ? thisKey[1].compareTo(otherKey[1])
         : thisKey[0].compareTo(otherKey[0]);
   }
+
+  bool isVeggie() {
+    return labels.contains('Vegan') ||
+        labels.contains('Vegetarisch') ||
+        labels.contains('vegan') ||
+        labels.contains('vegetarisch') ||
+        labels.contains('Vegetarian') ||
+        labels.contains('vegetarian');
+  }
 }
 
 class NutritionInfo {

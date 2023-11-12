@@ -17,20 +17,21 @@ class DishCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // styles
     final theme = Theme.of(context);
-    final dishNameStyle = theme.textTheme.titleMedium!.copyWith(
+    final nameStyle = theme.textTheme.titleMedium!.copyWith(
       color: theme.colorScheme.primary,
     );
-    final dishPriceStyle = theme.textTheme.titleLarge!.copyWith(
+    final priceStyle = theme.textTheme.titleLarge!.copyWith(
       color: theme.colorScheme.onPrimaryContainer,
     );
-    final dishCategoryStyle = theme.textTheme.titleMedium!.copyWith(
+    final categoryStyle = theme.textTheme.titleMedium!.copyWith(
       color: theme.colorScheme.primary.withOpacity(0.6),
     );
     const cardBorder = BorderRadius.all(Radius.circular(12));
 
-    // vegan/vegetarian dish? => green card
-    final isVeggie =
-        dish.labels.contains('Vegan') || dish.labels.contains('Vegetarisch');
+    // dish is vegan/vegetarian? => green + veggie tag
+    final isVeggie = dish.isVeggie();
+    final cardBorderColor =
+        isVeggie ? Colors.green : theme.colorScheme.outlineVariant;
 
     return SizedBox(
       width: 320,
@@ -55,9 +56,7 @@ class DishCard extends StatelessWidget {
               color: theme.colorScheme.background,
               shape: RoundedRectangleBorder(
                 side: BorderSide(
-                  color: isVeggie
-                      ? Colors.green
-                      : theme.colorScheme.outlineVariant,
+                  color: cardBorderColor,
                 ),
                 borderRadius: cardBorder,
               ),
@@ -67,7 +66,7 @@ class DishCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(dish.name, style: dishNameStyle),
+                    Text(dish.name, style: nameStyle),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -76,9 +75,9 @@ class DishCard extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               VeggieTag(isVeggie: isVeggie),
-                              Text(dish.category, style: dishCategoryStyle)
+                              Text(dish.category, style: categoryStyle)
                             ]),
-                        Text(formatPrice(dish.price), style: dishPriceStyle)
+                        Text(formatPrice(dish.price), style: priceStyle)
                       ],
                     )
                   ],
@@ -93,7 +92,6 @@ class DishCard extends StatelessWidget {
 }
 
 /// Detailed information about dish
-/// TODO: implement
 class DishDetailCard extends StatelessWidget {
   const DishDetailCard({
     super.key,
@@ -106,9 +104,91 @@ class DishDetailCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // styles
     final theme = Theme.of(context);
+    final nameStyle = theme.textTheme.titleLarge!.copyWith(
+      color: theme.colorScheme.primary,
+    );
+    final priceStyle = theme.textTheme.headlineMedium!.copyWith(
+      color: theme.colorScheme.onPrimaryContainer,
+    );
+    final categoryStyle = theme.textTheme.titleMedium!.copyWith(
+      color: theme.colorScheme.primary.withOpacity(0.6),
+    );
+    final subheaderStyle = theme.textTheme.titleMedium!.copyWith(
+      color: theme.colorScheme.secondary,
+    );
+    final subcontentStyle = theme.textTheme.bodyLarge!.copyWith(
+      color: theme.colorScheme.tertiary,
+    );
+    final nutriStyle = subcontentStyle.copyWith(fontWeight: FontWeight.w100);
+    const cardBorder = BorderRadius.all(Radius.circular(12));
+
+    // dish vegan/vegetarian => green border
+    final isVeggie = dish.isVeggie();
+    final cardBorderColor =
+        isVeggie ? Colors.green : theme.colorScheme.outlineVariant;
+
+    final ni = dish.nutritionInfo;
 
     return SizedBox(
-        width: 640, height: 480, child: Card(child: Text(dish.orderKey)));
+        width: 640,
+        height: 480,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: cardBorderColor,
+            ),
+            borderRadius: cardBorder,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(dish.name, style: nameStyle),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text('Allergene', style: subheaderStyle),
+                  Text(formatList(dish.allergens), style: subcontentStyle),
+                ]),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text('Merkmale', style: subheaderStyle),
+                  Text(formatList(dish.labels), style: subcontentStyle),
+                ]),
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text('Nährwerte', style: subheaderStyle),
+                  Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                    Text('Energie: ', style: subcontentStyle),
+                    Text('${formatNum(ni.kj)} kJ / ${formatNum(ni.kcal)} kcal',
+                        style: nutriStyle)
+                  ]),
+                  Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                    Text('Fett: ', style: subcontentStyle),
+                    Text('${formatNum(ni.fat)} g', style: nutriStyle)
+                  ]),
+                  Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                    Text('Kohlehydrate: ', style: subcontentStyle),
+                    Text('${formatNum(ni.carb)} g', style: nutriStyle)
+                  ]),
+                  Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                    Text('Protein: ', style: subcontentStyle),
+                    Text('${formatNum(ni.protein)} g', style: nutriStyle)
+                  ]),
+                  Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+                    Text('Salz: ', style: subcontentStyle),
+                    Text('${formatNum(ni.sodium)} g', style: nutriStyle)
+                  ])
+                ]),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(dish.category, style: categoryStyle),
+                      Text(formatPrice(dish.price), style: priceStyle)
+                    ])
+              ],
+            ),
+          ),
+        ));
   }
 }
 
