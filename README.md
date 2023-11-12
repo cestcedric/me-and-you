@@ -1,8 +1,12 @@
 # Me & You - Newton Canteen Menu
 
 Flutter app providing a proper web app experience to read the canteen's menu for the Newton building in Munich.
+You can try it out [here](https://cestcedric.github.io/me-and-you/)!
 
 ## Architecture
+
+This frontend does **not** access the API used in the original [FG & More App](https://fruehaufgenuss.de/fruehauf-genuss-app/).
+Instead it gets data from a Firebase Firestore. This setup causes no additional load on the original API, although it of course also means that the data in the Firestore has to be updated regularly.
 
 ## Future Work
 
