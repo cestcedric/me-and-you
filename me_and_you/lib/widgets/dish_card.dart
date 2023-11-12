@@ -17,13 +17,20 @@ class DishCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // styles
     final theme = Theme.of(context);
-    final dishNameStyle = theme.textTheme.labelMedium!.copyWith(
+    final dishNameStyle = theme.textTheme.titleMedium!.copyWith(
       color: theme.colorScheme.primary,
     );
-    final dishPriceStyle = theme.textTheme.displaySmall!.copyWith(
-      color: theme.colorScheme.primary,
+    final dishPriceStyle = theme.textTheme.titleLarge!.copyWith(
+      color: theme.colorScheme.onPrimaryContainer,
+    );
+    final dishCategoryStyle = theme.textTheme.titleMedium!.copyWith(
+      color: theme.colorScheme.primary.withOpacity(0.6),
     );
     const cardBorder = BorderRadius.all(Radius.circular(12));
+
+    // vegan/vegetarian dish? => green card
+    final isVegan =
+        dish.labels.contains('Vegan') || dish.labels.contains('Vegetarisch');
 
     // TODO: add name + price + category as icon
 
@@ -50,7 +57,8 @@ class DishCard extends StatelessWidget {
               color: theme.colorScheme.background,
               shape: RoundedRectangleBorder(
                 side: BorderSide(
-                  color: theme.colorScheme.outlineVariant,
+                  color:
+                      isVegan ? Colors.green : theme.colorScheme.outlineVariant,
                 ),
                 borderRadius: cardBorder,
               ),
@@ -62,8 +70,15 @@ class DishCard extends StatelessWidget {
                   children: [
                     Text(dish.name, style: dishNameStyle),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
+                        Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              VeganTag(isVegan: isVegan),
+                              Text(dish.category, style: dishCategoryStyle)
+                            ]),
                         Text(formatPrice(dish.price), style: dishPriceStyle)
                       ],
                     )
@@ -92,6 +107,37 @@ class DishDetailCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return SizedBox(
-        width: 640, height: 480, child: Card(child: Text(dish.id.toString())));
+        width: 640,
+        height: 480,
+        child: Card(child: Text(dish.labels.toString())));
+  }
+}
+
+class VeganTag extends StatelessWidget {
+  const VeganTag({super.key, required this.isVegan});
+
+  final bool isVegan;
+
+  @override
+  Widget build(BuildContext context) {
+    return isVegan
+        ? Padding(
+            padding: EdgeInsets.only(right: 8),
+            child: Container(
+              padding: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: isVegan ? Colors.green : Colors.red,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Text(
+                isVegan ? 'Vegan' : 'Non-Vegan',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          )
+        : Container();
   }
 }

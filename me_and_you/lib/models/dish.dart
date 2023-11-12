@@ -4,8 +4,8 @@ class Dish {
   final String name;
   final DateTime date;
   final String category;
-  final List<dynamic>? allergens;
-  final List<dynamic>? labels;
+  final List<dynamic> allergens;
+  final List<dynamic> labels;
   final NutritionInfo nutritionInfo;
   final String orderKey;
 
@@ -27,8 +27,8 @@ class Dish {
         name = json['name'] as String,
         date = DateTime.parse(json['date']),
         category = json['category'] as String,
-        allergens = json['allergens'] as List<dynamic>,
-        labels = json['labels'],
+        allergens = json['allergens'] ?? [],
+        labels = json['labels'] ?? [],
         nutritionInfo = NutritionInfo.fromJson(json['nutrition_info']),
         orderKey = json['order_key'] as String;
 }
