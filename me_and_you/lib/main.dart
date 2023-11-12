@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:me_and_you/state/app_state.dart';
 import 'package:me_and_you/widgets/home.dart';
@@ -20,15 +19,7 @@ class CanteenApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => appState,
       child: MaterialApp(
-        scrollBehavior: MaterialScrollBehavior().copyWith(
-          dragDevices: {
-            PointerDeviceKind.mouse,
-            PointerDeviceKind.touch,
-            PointerDeviceKind.stylus,
-            PointerDeviceKind.unknown
-          },
-        ),
-        title: 'Me & You',
+        title: 'Speiseplan',
         theme: ThemeData(
             useMaterial3: true,
             colorScheme: ColorScheme.fromSeed(

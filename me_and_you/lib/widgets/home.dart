@@ -40,9 +40,8 @@ class MenuPage extends StatelessWidget {
                       onStretchTrigger: appState.update,
                       backgroundColor: colorScheme.background,
                       flexibleSpace: FlexibleSpaceBar(
-                        title: Text('Speiseplan $location', style: titleStyle),
-                        titlePadding:
-                            EdgeInsets.only(left: 16, right: 16, bottom: 16),
+                        title: Text(location, style: titleStyle),
+                        centerTitle: true,
                         background: DecoratedBox(
                           position: DecorationPosition.foreground,
                           decoration: BoxDecoration(
@@ -56,14 +55,16 @@ class MenuPage extends StatelessWidget {
                       (context, index) {
                         var date = validFrom.add(Duration(days: index));
 
-                        return DailyMenu(
-                          key: Key(dateToDashedString(date)),
-                          date: date,
-                          dishes: menu.isNotEmpty
-                              ? buildDailyMenu(
-                                  menu[dateToDashedString(date)] ?? [])
-                              : buildDailyMenu([]),
-                        );
+                        return Column(children: [
+                          DailyMenu(
+                            key: Key(dateToDashedString(date)),
+                            date: date,
+                            dishes: menu.isNotEmpty
+                                ? buildDailyMenu(
+                                    menu[dateToDashedString(date)] ?? [])
+                                : buildDailyMenu([]),
+                          )
+                        ]);
                       },
                       childCount: validityPeriod,
                     ),

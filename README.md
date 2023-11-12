@@ -21,4 +21,4 @@ However, some ideas could still be implemented:
 
 ### Icons
 
-[Open menu icons]("https://www.flaticon.com/free-icons/open-menu) created by Freepik - Flaticon
+[Spoon icons]("https://www.flaticon.com/free-icons/sppon) created by Freepik - Flaticon
