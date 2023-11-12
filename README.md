@@ -1,8 +1,14 @@
 # Me & You - Newton Canteen Menu
 
 Flutter app providing a proper web app experience to read the canteen's menu for the Newton building in Munich.
+You can try it out [here](https://cestcedric.github.io/me-and-you/)!
 
 ## Architecture
+
+The raw data used in the original [FG & More App](https://fruehaufgenuss.de/fruehauf-genuss-app/) is coming from a password protected API. While the endpoints, user name and password are all hardcoded in the app and easy to find, this project is using a custom backend to avoid leaking any info even harder.
+The implementation can be found in this second, private, [repository](https://github.com/cestcedric/newton-canteen-relay) (obviously I'm going build a proxy backend just to then leak the password there).
+
+![Proxy setup](/docs/me-and-you.png 'Proxy setup.')
 
 ## Future Work
 
