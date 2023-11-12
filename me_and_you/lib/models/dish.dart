@@ -1,4 +1,4 @@
-class Dish {
+class Dish implements Comparable<Dish> {
   final int id;
   final num price;
   final String name;
@@ -31,6 +31,17 @@ class Dish {
         labels = json['labels'] ?? [],
         nutritionInfo = NutritionInfo.fromJson(json['nutrition_info']),
         orderKey = json['order_key'] as String;
+
+  @override
+  int compareTo(Dish other) {
+    final thisKey = orderKey.split('_').map((k) => int.parse(k)).toList();
+    final otherKey =
+        other.orderKey.split('_').map((k) => int.parse(k)).toList();
+
+    return thisKey[0] == otherKey[0]
+        ? thisKey[1].compareTo(otherKey[1])
+        : thisKey[0].compareTo(otherKey[0]);
+  }
 }
 
 class NutritionInfo {

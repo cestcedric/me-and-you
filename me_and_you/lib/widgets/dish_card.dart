@@ -32,8 +32,6 @@ class DishCard extends StatelessWidget {
     final isVegan =
         dish.labels.contains('Vegan') || dish.labels.contains('Vegetarisch');
 
-    // TODO: add name + price + category as icon
-
     return SizedBox(
       width: 320,
       height: 240,
@@ -107,9 +105,7 @@ class DishDetailCard extends StatelessWidget {
     final theme = Theme.of(context);
 
     return SizedBox(
-        width: 640,
-        height: 480,
-        child: Card(child: Text(dish.labels.toString())));
+        width: 640, height: 480, child: Card(child: Text(dish.orderKey)));
   }
 }
 

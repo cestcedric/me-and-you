@@ -49,6 +49,8 @@ class MenuPage extends StatelessWidget {
   }
 
   Wrap buildDailyMenu(List<Dish> menu) {
+    menu.sort();
+
     return Wrap(
       children: menu.map((dish) => DishCard(dish: dish)).toList(),
     );
