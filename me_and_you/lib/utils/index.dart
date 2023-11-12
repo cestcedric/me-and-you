@@ -46,3 +46,7 @@ String formatList(List list) {
 String formatNum(num? x) {
   return x?.toString() ?? '-';
 }
+
+List<int> range(int length, {int start = 0, int step = 1}) {
+  return List.generate(length, (index) => start + index * step);
+}

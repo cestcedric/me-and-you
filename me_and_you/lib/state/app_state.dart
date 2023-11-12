@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:me_and_you/utils/index.dart';
-import 'package:me_and_you/widgets/config.dart';
 import 'package:me_and_you/models/dish.dart';
 
 class AppState extends ChangeNotifier {
@@ -21,10 +20,10 @@ class AppState extends ChangeNotifier {
 
   Future update() async {
     dataLoaded = false;
-    notifyListeners();
 
     await fetchData();
     initialized = true;
+    dataLoaded = true;
 
     notifyListeners();
   }
@@ -39,7 +38,5 @@ class AppState extends ChangeNotifier {
           menu[date] =
               dishes.map<Dish>((element) => Dish.fromJson(element)).toList()
         });
-
-    dataLoaded = true;
   }
 }

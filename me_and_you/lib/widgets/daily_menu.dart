@@ -5,7 +5,7 @@ import 'package:me_and_you/utils/index.dart';
 /// A segment containing all dishes of a certain day and a sticky header
 class DailyMenu extends StatelessWidget {
   final DateTime date;
-  final Wrap dishes;
+  final Widget dishes;
 
   const DailyMenu({
     super.key,
@@ -44,12 +44,14 @@ class DailyMenu extends StatelessWidget {
     return StickyHeader(
       header: Container(
           color: theme.colorScheme.background,
-          padding: EdgeInsets.symmetric(vertical: 16),
+          padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
           alignment: Alignment.centerLeft,
           child: RichText(
             text: headerContent,
           )),
-      content: dishes,
+      content: Container(
+          padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+          child: dishes),
     );
   }
 }
