@@ -20,6 +20,7 @@ class AppState extends ChangeNotifier {
 
   Future update() async {
     dataLoaded = false;
+    // notifyListeners();
 
     await fetchData();
     initialized = true;
