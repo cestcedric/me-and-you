@@ -145,14 +145,16 @@ class DishDetailCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(dish.name, style: nameStyle),
+                SelectableText(dish.name, style: nameStyle),
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text('Allergene', style: subheaderStyle),
-                  Text(formatList(dish.allergens), style: subcontentStyle),
+                  SelectableText(formatList(dish.allergens),
+                      style: subcontentStyle),
                 ]),
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text('Merkmale', style: subheaderStyle),
-                  Text(formatList(dish.labels), style: subcontentStyle),
+                  SelectableText(formatList(dish.labels),
+                      style: subcontentStyle),
                 ]),
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text('Nährwerte', style: subheaderStyle),

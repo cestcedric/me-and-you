@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:me_and_you/widgets/config.dart';
 
 Future<dynamic> queryFirestore() async {
@@ -36,7 +37,7 @@ String dateToDashedString(DateTime date) {
 }
 
 String formatPrice(num price) {
-  return '${price.toStringAsFixed(2)} €';
+  return NumberFormat.simpleCurrency(locale: Intl.systemLocale).format(price);
 }
 
 String formatList(List list) {
@@ -44,7 +45,9 @@ String formatList(List list) {
 }
 
 String formatNum(num? x) {
-  return x?.toString() ?? '-';
+  return x != null
+      ? NumberFormat.decimalPattern(Intl.systemLocale).format(x)
+      : '-';
 }
 
 List<int> range(int length, {int start = 0, int step = 1}) {
