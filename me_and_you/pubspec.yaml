@@ -16,6 +16,7 @@ dependencies:
   sticky_headers: ^0.3.0+2
   http: ^1.1.0
   html: ^0.15.4
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
