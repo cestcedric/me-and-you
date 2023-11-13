@@ -34,6 +34,8 @@ class MenuPage extends StatelessWidget {
                   slivers: [
                     SliverAppBar(
                       pinned: false,
+                      stretch: true,
+                      onStretchTrigger: appState.update,
                       title: Center(child: Text(location, style: titleStyle)),
                       backgroundColor: colorScheme.background,
                       surfaceTintColor: colorScheme.primary,

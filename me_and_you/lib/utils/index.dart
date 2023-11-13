@@ -37,7 +37,7 @@ String dateToDashedString(DateTime date) {
 }
 
 String formatPrice(num price) {
-  return NumberFormat.simpleCurrency(locale: Intl.systemLocale).format(price);
+  return NumberFormat.simpleCurrency(locale: 'de_DE').format(price);
 }
 
 String formatList(List list) {
@@ -45,9 +45,7 @@ String formatList(List list) {
 }
 
 String formatNum(num? x) {
-  return x != null
-      ? NumberFormat.decimalPattern(Intl.systemLocale).format(x)
-      : '-';
+  return x != null ? NumberFormat.decimalPattern('de_DE').format(x) : '-';
 }
 
 List<int> range(int length, {int start = 0, int step = 1}) {

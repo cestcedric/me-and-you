@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl_standalone.dart';
 import 'package:me_and_you/state/app_state.dart';
 import 'package:me_and_you/widgets/home.dart';
 import 'package:provider/provider.dart';
@@ -13,9 +12,6 @@ class CanteenApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // set local
-    findSystemLocale();
-
     // async data retrieval to fill state, start as early as possible
     var appState = AppState();
     appState.update();
