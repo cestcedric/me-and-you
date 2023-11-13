@@ -24,32 +24,39 @@ class MenuPage extends StatelessWidget {
     var location = appState.location;
     var menu = appState.menu;
     var initialized = appState.initialized;
+    var loading = !appState.dataLoaded;
 
     return SafeArea(
       child: initialized
           ? Container(
               color: colorScheme.background,
-              // padding: EdgeInsets.symmetric(horizontal: 16),
               child: CustomScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
                 slivers: [
                   SliverAppBar(
-                      // title: Text('Speiseplan $location', style: titleStyle),
-                      pinned: false,
-                      stretch: true,
-                      onStretchTrigger: appState.update,
-                      backgroundColor: colorScheme.background,
-                      flexibleSpace: FlexibleSpaceBar(
-                        title: Text(location, style: titleStyle),
-                        centerTitle: true,
-                        background: DecoratedBox(
-                          position: DecorationPosition.foreground,
-                          decoration: BoxDecoration(
-                              border: Border(
-                                  bottom: BorderSide(
-                                      color: colorScheme.outlineVariant))),
+                    pinned: false,
+                    stretch: true,
+                    onStretchTrigger: () async {
+                      appState.dataLoaded = false;
+                      return appState.update();
+                    },
+                    title: Center(child: Text(location, style: titleStyle)),
+                    backgroundColor: colorScheme.background,
+                    surfaceTintColor: colorScheme.primary,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: DecoratedBox(
+                        position: DecorationPosition.foreground,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom:
+                                BorderSide(color: colorScheme.outlineVariant),
+                          ),
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
+                  if (loading)
+                    SliverList.list(children: [LinearProgressIndicator()]),
                   SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
