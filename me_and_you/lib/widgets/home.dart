@@ -24,65 +24,53 @@ class MenuPage extends StatelessWidget {
     var location = appState.location;
     var menu = appState.menu;
     var initialized = appState.initialized;
-    var loading = !appState.dataLoaded;
 
-    return SafeArea(
-      child: initialized
-          ? Container(
-              color: colorScheme.background,
-              child: CustomScrollView(
-                physics: AlwaysScrollableScrollPhysics(),
-                slivers: [
-                  SliverAppBar(
-                    pinned: false,
-                    stretch: true,
-                    onStretchTrigger: () async {
-                      appState.dataLoaded = false;
-                      return appState.update();
-                    },
-                    title: Center(child: Text(location, style: titleStyle)),
-                    backgroundColor: colorScheme.background,
-                    surfaceTintColor: colorScheme.primary,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: DecoratedBox(
-                        position: DecorationPosition.foreground,
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom:
-                                BorderSide(color: colorScheme.outlineVariant),
+    return Container(
+      color: colorScheme.background,
+      child: SafeArea(
+          child: initialized
+              ? CustomScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  slivers: [
+                    SliverAppBar(
+                      pinned: false,
+                      title: Center(child: Text(location, style: titleStyle)),
+                      backgroundColor: colorScheme.background,
+                      surfaceTintColor: colorScheme.primary,
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: DecoratedBox(
+                          position: DecorationPosition.foreground,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom:
+                                  BorderSide(color: colorScheme.outlineVariant),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  if (loading)
-                    SliverList.list(children: [LinearProgressIndicator()]),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        var date = validFrom.add(Duration(days: index));
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          var date = validFrom.add(Duration(days: index));
 
-                        return Column(children: [
-                          DailyMenu(
-                            key: Key(dateToDashedString(date)),
-                            date: date,
-                            dishes: menu.isNotEmpty
-                                ? buildDailyMenu(
-                                    menu[dateToDashedString(date)] ?? [])
-                                : buildDailyMenu([]),
-                          )
-                        ]);
-                      },
-                      childCount: validityPeriod,
+                          return Column(children: [
+                            DailyMenu(
+                              key: Key(dateToDashedString(date)),
+                              date: date,
+                              dishes: menu.isNotEmpty
+                                  ? buildDailyMenu(
+                                      menu[dateToDashedString(date)] ?? [])
+                                  : buildDailyMenu([]),
+                            )
+                          ]);
+                        },
+                        childCount: validityPeriod,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            )
-          : Container(
-              color: colorScheme.background,
-              child: Column(children: [LinearProgressIndicator()]),
-            ),
+                  ],
+                )
+              : Column(children: [LinearProgressIndicator()])),
     );
   }
 
