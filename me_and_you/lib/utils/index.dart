@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:me_and_you/models/dish.dart';
 import 'package:me_and_you/widgets/config.dart';
 import 'package:me_and_you/widgets/daily_menu.dart';
 import 'package:me_and_you/widgets/dish_card.dart';
