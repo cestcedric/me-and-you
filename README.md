@@ -13,8 +13,6 @@ Instead it gets data from a Firebase Firestore. This setup causes no additional 
 This app does pretty much exactly what I want it to do.
 However, some ideas could still be implemented:
 
-- Automatically scroll to current day (this one would actually be pretty nice)
-  - Maybe using an approach similar to [this one](https://stackoverflow.com/questions/49153087/flutter-scrolling-to-a-widget-in-listview), although I didn't get it to work on the first try
 - Filters for allergens, veggie, ...
 - Feedback, rate dishes
 - Favourites
