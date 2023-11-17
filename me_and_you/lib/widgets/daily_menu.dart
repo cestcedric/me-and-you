@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:me_and_you/models/dish.dart';
+import 'package:me_and_you/widgets/dish_card.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:me_and_you/utils/index.dart';
 
 /// A segment containing all dishes of a certain day and a sticky header
 class DailyMenu extends StatelessWidget {
   final DateTime date;
-  final Widget dishes;
+  final List<Dish> dishes;
+
+  static const headerHeight = 76.0;
+  static const pad = 16.0;
 
   const DailyMenu({
     super.key,
@@ -44,14 +49,23 @@ class DailyMenu extends StatelessWidget {
     return StickyHeader(
       header: Container(
           color: theme.colorScheme.background,
-          padding: EdgeInsets.all(16),
+          height: headerHeight,
+          padding: EdgeInsets.all(pad),
           alignment: Alignment.centerLeft,
           child: RichText(
             text: headerContent,
           )),
-      content: Container(
-          padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
-          child: dishes),
+      content: Padding(
+          padding: EdgeInsets.only(left: pad, right: pad, bottom: pad),
+          child: buildDailyMenu(dishes)),
+    );
+  }
+
+  static Wrap buildDailyMenu(List<Dish> menu) {
+    menu.sort();
+
+    return Wrap(
+      children: menu.map((dish) => DishCard(dish: dish)).toList(),
     );
   }
 }
