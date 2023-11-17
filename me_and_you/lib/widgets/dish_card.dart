@@ -13,6 +13,10 @@ class DishCard extends StatelessWidget {
 
   final Dish dish;
 
+  static const width = 320.0;
+  static const height = 240.0;
+  static const pad = 16.0;
+
   @override
   Widget build(BuildContext context) {
     // styles
@@ -34,8 +38,8 @@ class DishCard extends StatelessWidget {
         isVeggie ? Colors.green : theme.colorScheme.outlineVariant;
 
     return SizedBox(
-      width: 320,
-      height: 240,
+      width: width,
+      height: height,
       child: Material(
         child: InkWell(
           onTap: () => Navigator.of(context).push(
@@ -61,7 +65,7 @@ class DishCard extends StatelessWidget {
                 borderRadius: cardBorder,
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(pad),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,

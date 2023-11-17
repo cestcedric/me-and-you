@@ -1,7 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:me_and_you/models/dish.dart';
 import 'package:me_and_you/widgets/config.dart';
+import 'package:me_and_you/widgets/daily_menu.dart';
+import 'package:me_and_you/widgets/dish_card.dart';
+import 'package:me_and_you/widgets/home.dart';
 
 Future<dynamic> queryFirestore() async {
   return http
@@ -50,4 +54,36 @@ String formatNum(num? x) {
 
 List<int> range(int length, {int start = 0, int step = 1}) {
   return List.generate(length, (index) => start + index * step);
+}
+
+double scrollToToday(
+  DateTime validFrom,
+  int validityPeriod,
+  double screenWidth,
+  Map<String, List> items,
+) {
+  var today = DateTime.now().difference(validFrom).inDays;
+  var contextWidth = screenWidth - DailyMenu.pad * 2;
+
+  // don't scroll on Monday and the weekend
+  if (today < 1 || today >= validityPeriod) {
+    return 0.0;
+  }
+
+  final keys = items.keys.toList();
+  keys.sort();
+
+  var offset = MenuPage.appBarHeight;
+
+  for (var i = 0; i < today; i++) {
+    var itemCount = items[keys[i]]?.length ?? 0;
+    var itemsPerRow = (contextWidth / DishCard.width).floor();
+    var rowCount = (itemCount / itemsPerRow).ceil();
+
+    offset += DailyMenu.headerHeight;
+    offset += rowCount * DishCard.height;
+    offset += DailyMenu.pad;
+  }
+
+  return offset;
 }
