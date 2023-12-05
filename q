@@ -1,0 +1,62 @@
+[1mdiff --git a/me_and_you/lib/utils/index.dart b/me_and_you/lib/utils/index.dart[m
+[1mindex 2eafb2f..04d606e 100644[m
+[1m--- a/me_and_you/lib/utils/index.dart[m
+[1m+++ b/me_and_you/lib/utils/index.dart[m
+[36m@@ -36,7 +36,7 @@[m [mString dateToDottedString(DateTime date) {[m
+ }[m
+ [m
+ String dateToDashedString(DateTime date) {[m
+[31m-  return '${date.year}-${date.month}-${date.day}';[m
+[32m+[m[32m  return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';[m
+ }[m
+ [m
+ String formatPrice(num price) {[m
+[1mdiff --git a/me_and_you/lib/widgets/dish_card.dart b/me_and_you/lib/widgets/dish_card.dart[m
+[1mindex 80abeeb..f87d2bd 100644[m
+[1m--- a/me_and_you/lib/widgets/dish_card.dart[m
+[1m+++ b/me_and_you/lib/widgets/dish_card.dart[m
+[36m@@ -19,6 +19,9 @@[m [mclass DishCard extends StatelessWidget {[m
+ [m
+   @override[m
+   Widget build(BuildContext context) {[m
+[32m+[m[32m    print(dish.name);[m
+[32m+[m[32m    print('--');[m
+[32m+[m
+     // styles[m
+     final theme = Theme.of(context);[m
+     final nameStyle = theme.textTheme.titleMedium!.copyWith([m
+[36m@@ -37,6 +40,9 @@[m [mclass DishCard extends StatelessWidget {[m
+     final cardBorderColor =[m
+         isVeggie ? Colors.green : theme.colorScheme.outlineVariant;[m
+ [m
+[32m+[m[32m    print(dish.name);[m
+[32m+[m[32m    print('--');[m
+[32m+[m
+     return SizedBox([m
+       width: width,[m
+       height: height,[m
+[1mdiff --git a/me_and_you/windows/flutter/CMakeLists.txt b/me_and_you/windows/flutter/CMakeLists.txt[m
+[1mindex 930d207..903f489 100644[m
+[1m--- a/me_and_you/windows/flutter/CMakeLists.txt[m
+[1m+++ b/me_and_you/windows/flutter/CMakeLists.txt[m
+[36m@@ -10,6 +10,11 @@[m [minclude(${EPHEMERAL_DIR}/generated_config.cmake)[m
+ # https://github.com/flutter/flutter/issues/57146.[m
+ set(WRAPPER_ROOT "${EPHEMERAL_DIR}/cpp_client_wrapper")[m
+ [m
+[32m+[m[32m# Set fallback configurations for older versions of the flutter tool.[m
+[32m+[m[32mif (NOT DEFINED FLUTTER_TARGET_PLATFORM)[m
+[32m+[m[32m  set(FLUTTER_TARGET_PLATFORM "windows-x64")[m
+[32m+[m[32mendif()[m
+[32m+[m
+ # === Flutter Library ===[m
+ set(FLUTTER_LIBRARY "${EPHEMERAL_DIR}/flutter_windows.dll")[m
+ [m
+[36m@@ -92,7 +97,7 @@[m [madd_custom_command([m
+   COMMAND ${CMAKE_COMMAND} -E env[m
+     ${FLUTTER_TOOL_ENVIRONMENT}[m
+     "${FLUTTER_ROOT}/packages/flutter_tools/bin/tool_backend.bat"[m
+[31m-      windows-x64 $<CONFIG>[m
+[32m+[m[32m      ${FLUTTER_TARGET_PLATFORM} $<CONFIG>[m
+   VERBATIM[m
+ )[m
+ add_custom_target(flutter_assemble DEPENDS[m
