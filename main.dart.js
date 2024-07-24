@@ -23255,11 +23255,11 @@ _.d=d
 _.e=e
 _.f=f},
 ht:function ht(a,b,c,d){var _=this
-_.a=!1
-_.c=a
-_.d=b
-_.e=c
-_.f=""
+_.c=_.a=!1
+_.d=a
+_.e=b
+_.f=c
+_.r=""
 _.fx$=0
 _.fy$=d
 _.id$=_.go$=0
@@ -73483,15 +73483,15 @@ while(true)switch(s){case 0:s=2
 return A.a0(A.ai_(),$async$wo)
 case 2:p=b
 o=J.b2(p)
-q.d=A.afm(o.k(p,"validFrom"))
-q.e=A.afm(o.k(p,"validTo"))
-q.f=o.k(p,"location")
+q.e=A.afm(o.k(p,"validFrom"))
+q.f=A.afm(o.k(p,"validTo"))
+q.r=o.k(p,"location")
 J.Rc(o.k(p,"dishes"),new A.RF(q))
 return A.T(null,r)}})
 return A.U($async$wo,r)}}
 A.RF.prototype={
 $2(a,b){var s=J.o6(b,new A.RE(),t.JR).ec(0)
-this.a.c.n(0,a,s)
+this.a.d.n(0,a,s)
 return A.cg([s],t.z)},
 $S:451}
 A.RE.prototype={
@@ -73617,9 +73617,9 @@ if(this.c){s=A.af4(8)
 s=new A.cA(new A.aF(0,0,8,0),A.hw(r,A.ck("Veggie",r,A.qn(r,r,B.j,r,r,r,r,r,r,r,r,r,r,r,B.cq,r,r,!0,r,r,r,r,r,r,r,r)),B.v,r,r,new A.d6(B.ir,r,r,s,r,r,B.aQ),r,r,new A.aF(8,8,8,8),r),r)}else s=A.hw(r,r,B.v,r,r,r,r,r,r,r)
 return s}}
 A.Fi.prototype={
-K(a){var s,r,q,p,o=null,n=A.a8(a),m=n.ax,l=m.b,k=n.p3.c.cr(l),j=A.bP(a,o,t.w).w,i=A.avT(a,t.Tz),h=i.d,g=B.f.cp(A.c1(0,0,i.e.a-h.a).a,864e8)+1,f=i.f,e=i.c,d=i.a
-if(d)A.us(B.p,new A.ZD(a),t.z)
-s=m.CW
+K(a){var s,r,q,p,o=null,n=A.a8(a),m=n.ax,l=m.b,k=n.p3.c.cr(l),j=A.bP(a,o,t.w).w,i=A.avT(a,t.Tz),h=i.e,g=B.f.cp(A.c1(0,0,i.f.a-h.a).a,864e8)+1,f=i.r,e=i.d,d=i.a
+if(!i.c){i.c=!0
+A.us(B.p,new A.ZD(a),t.z)}s=m.CW
 if(d){j=A.Hc(A.aCl(h,g,j.a.a,e))
 r=i.gaf5()
 q=A.k0(A.ck(f,o,k),o,o)
