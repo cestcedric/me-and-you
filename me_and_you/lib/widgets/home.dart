@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:me_and_you/utils/alert.dart';
 import 'package:me_and_you/state/app_state.dart';
 import 'package:me_and_you/utils/index.dart';
 import 'package:me_and_you/widgets/daily_menu.dart';
@@ -26,6 +27,8 @@ class MenuPage extends StatelessWidget {
     var location = appState.location;
     var menu = appState.menu;
     var initialized = appState.initialized;
+
+    Future.delayed(Duration.zero, () => showAlertDialog(context));
 
     return Container(
       color: colorScheme.background,

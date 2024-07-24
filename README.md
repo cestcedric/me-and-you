@@ -17,6 +17,14 @@ However, some ideas could still be implemented:
 - Feedback, rate dishes
 - Favourites
 
+## How To
+
+### Publish the app to github pages
+
+```sh
+dart pub global run peanut
+```
+
 ## Attributions
 
 ### Icons
