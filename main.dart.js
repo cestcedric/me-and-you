@@ -73618,7 +73618,7 @@ s=new A.cA(new A.aF(0,0,8,0),A.hw(r,A.ck("Veggie",r,A.qn(r,r,B.j,r,r,r,r,r,r,r,r
 return s}}
 A.Fi.prototype={
 K(a){var s,r,q,p,o=null,n=A.a8(a),m=n.ax,l=m.b,k=n.p3.c.cr(l),j=A.bP(a,o,t.w).w,i=A.avT(a,t.Tz),h=i.d,g=B.f.cp(A.c1(0,0,i.e.a-h.a).a,864e8)+1,f=i.f,e=i.c,d=i.a
-A.us(B.p,new A.ZD(a),t.z)
+if(d)A.us(B.p,new A.ZD(a),t.z)
 s=m.CW
 if(d){j=A.Hc(A.aCl(h,g,j.a.a,e))
 r=i.gaf5()
