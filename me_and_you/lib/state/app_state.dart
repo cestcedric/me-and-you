@@ -6,6 +6,8 @@ class AppState extends ChangeNotifier {
   bool initialized = false;
   bool dataLoaded = false;
 
+  bool alertDisplayed = false;
+
   Map<String, List<Dish>> menu = {};
 
   // educated guess that works out fine during the week, not shown anyway
