@@ -28,7 +28,7 @@ class MenuPage extends StatelessWidget {
     var menu = appState.menu;
     var initialized = appState.initialized;
 
-    if (!appState.alertDisplayed) {
+    if (appState.alertNecessary && !appState.alertDisplayed) {
       appState.alertDisplayed = true;
       Future.delayed(Duration.zero, () => showAlertDialog(context));
     }
