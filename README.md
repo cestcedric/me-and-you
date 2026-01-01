@@ -8,6 +8,8 @@ You can try it out [here](https://cestcedric.github.io/me-and-you/)!
 This frontend does **not** access the API used in the original [FG & More App](https://fruehaufgenuss.de/fruehauf-genuss-app/).
 Instead it gets data from a Firebase Firestore. This setup causes no additional load on the original API, although it of course also means that the data in the Firestore has to be updated regularly.
 
+**Note**: no longer syncing data, as I no longer need to use this app.
+
 ## Future Work
 
 This app does pretty much exactly what I want it to do.

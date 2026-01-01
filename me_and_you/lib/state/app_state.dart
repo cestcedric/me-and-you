@@ -7,7 +7,7 @@ class AppState extends ChangeNotifier {
   bool dataLoaded = false;
 
   bool alertDisplayed = false;
-  bool alertNecessary = false;
+  bool alertNecessary = true;
 
   Map<String, List<Dish>> menu = {};
 
